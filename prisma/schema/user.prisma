@@ -1,0 +1,31 @@
+// npx prisma migrate dev --schema=./prisma/schema/user.prisma
+
+model user {
+  id                  String        @id @default(uuid()) @db.Uuid
+  role_id             Int           @default(1)
+  status_id           Int           @default(1)
+  username            String        @unique
+  password            String?
+  email               String        @unique
+  phone               String
+  first_name          String?
+  last_name           String?
+  avatar              String?       @db.Text
+  nik                 Int?
+  birth               DateTime?
+  gender              Int?
+  marital             Int?
+  religion_id         Int?
+  religion            religion?     @relation(fields: [religion_id], references: [id])
+  occupation_id       Int?
+  occupation          occupation?   @relation(fields: [occupation_id], references: [id])
+  province_id         Int?
+  province            province?     @relation(fields: [province_id], references: [id])
+  city_id             Int?
+  city                city?         @relation(fields: [city_id], references: [id])
+  address             String?       @db.Text
+  social              Json?
+  created_at          DateTime      @default(now())
+  updated_at          DateTime      @updatedAt
+  deleted             DateTime?
+}
